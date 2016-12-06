@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var request;
+    if(window.XMLHttpRequest){
+        request = new XMLHttpRequest();
+    }
+
+    request.open("GET","http://www.baidu.com",true);
+    request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    //request.send();
+
+    request.onreadystatechange = function(){
+        console.log(request.readyState+request.status);
+        console.log(request.responseText);
+
+    }
+
+    var jsonData='{"staff":[{"name":"红旗","sex":"男"},{"name":"红旗2","sex":"男2"}]}';
+    console.log(eval("("+jsonData+")"));
+    console.log(JSON.parse(jsonData));
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+html,body,div,ul,li,a{
+	padding: 0px;
+	margin: 0px;
+	font-family: Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 12px;
+}
+.cf{
+	clear:both;
+}
+.cf:after{
+	content: ".";
+	visibility: hidden;
+}
+a{text-decoration:none;}
+html{
+	background-color: #f5f5d5;
+}
+#container{
+	width: 100%;
+}
+#header{
+	border-bottom: 1px solid #d3d3d3;
+	width: 100%;
+	height: 5em;
+}
+#main_wide{
+	width: 85%;
+	margin: 0 auto;
+	padding: 1em;
+}
+#main_narrow{
+	width: 60%;
+	margin: 0 auto;
+	padding: 1em;
+}
+#title{
+	float: left;
+	margin-top: 0.9em;
+	font-size: 1.8em;
+	color: #556677;
+}
+#search{
+	float: right;
+	width: 201px;
+	height: 2.4em;
+	background: url("../images/searchTop.gif") no-repeat;
+	margin: 1.3em 1em;
+	position: relative;
+
+}
+#search input{
+	font-size: 14px;
+	padding: 2px;
+	border: 0;
+	float: left;
+	margin: 2px 1px 0px 2px;
+}
+#search img{
+	float: right;
+	border: 0px;
+	background-color: transparent;
+	position: absolute;
+	top: 0px;
+	left: 174px;
+	width: 26px;
+	height: 24px;
+}
+
+#homePage{
+	width: 64%;
+	margin-left: 3%;
+	float: left;
+}
+#homePage a{
+	text-decoration: none;
+}
+#homePage h2{
+	font-size: 2.2em;
+	margin-top: 0;
+	color: #555;
+}
+#homePage ul{
+	margin-left: 4em;
+	text-align: left;
+}
+#homePage li{
+	list-style-type: square;
+	font-size: 1.6em;
+	line-height: 220%;
+	color: rgba(0,0,0,0.5);
+}
+#homePage a{
+	font-size: 1.1em;
+	color: rgba(0,0,0,0.5);
+
+}
+#category{
+	background-color: #DEEBF7;
+	padding: 1em;
+	border-radius: 1em;
+	float: right;
+	width: 24%;
+	padding: 0.6em;
+	margin-right: 3%;
+	margin-bottom: 1em;
+	min-width: 180px;
+	max-width: 300px;
+	overflow: hidden;
+}
+#category h2{
+	font-size: 20px;
+	color: rgba(0,0,0,0.5);
+	border-bottom: 1px solid #d3d3d3;
+	height: 35px;
+}
+#category li{
+	list-style-type: square;
+	font-size: 1.44em;
+	margin-left: 1em;
+	color: #444;
+	margin-top: 10px;
+
+}
+#category a{
+	font-size: 1.14em;
+	color: #444;
+	border-bottom: 1px solid #d3d3d3;
+	padding: 4px 0;
+}
+
+#footer{
+	border-top: 1px solid #d3d3d3;
+	clear: both;
+	line-height: 1.2;
+	text-align: right;
+	width:100%;
+}
+#footer p{
+	font-size: 15px;
+	color: gray;
+	margin: 30px 40px;
+}
+
+/*文章页面*/
+/**导航*/
+#art_nav{
+	background-color: #DEEBF7;
+	padding: 1em;
+	border-radius: 1em;
+	width: 90%;
+	margin: 1em 0em;
+	overflow: hidden;
+}
+#art_cat{
+	font-size: 20px;
+	color: green;
+}
+#art_info{
+	font-size: 14px;
+	color: #556677;
+	padding-top: 10px;
+}
+#article{
+
+}
+#art_title{
+	margin: 1.4em 0 1.2em 0;
+	padding: 0 0 0.6em 0;
+	color: #111111;
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	border-bottom: 1px solid #d3d3d3;
+	font-size: 2.88em;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>上传文件</title>
+	<script type="text/javascript" src="js/jquery213.js"></script>
+	<script type="text/javascript" src="js/handlebars303.js"></script>
+</head>
+<body>
+<div>文章名称：<input type="text" name="title" id="title"/></div>
+<div>文章类型：<select name="category" style="width:140px" id="category">
+	<script id="show_category_list" type="text/x-handlebars-template">
+		{{#each this}}
+		<option value="{{this.code}}">{{this.name}}</option>{{/each}}
+	</script>
+
+</select><a href="newCategory.html">新建category</a> </div>
+<div>文章摘要：<input type="text" name="summary" id="summary"/></div>
+<div>页面名称：<input type="text" name="fileName" id="fileName"/></div>
+<div>文章作者：<input type="text" name="author" value="Bishion" id="author"/></div>
+
+<input type="button" value="提交" onclick="save()">
+<input type="button" value="同步数据" onclick="asyncData()">
+<a href="index.html" target="_blank">登录</a>
+<!-- 加载编辑器的容器 -->
+<div style="width: 80%;max-width: 1000px;min-width: 500px">
+	<script id="container" name="content" type="text/plain"></script>
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+	var ue = UE.getEditor('container');
+
+	function save() {
+
+		var title = $("#title").val().trim();
+		var summary = $("#summary").val().trim();
+		var author = $("#author").val().trim();
+		var fileName = $("#fileName").val().trim();
+		var category = $("#category").val().trim();
+		var content = ue.getContent().trim();
+		if(!(title&&summary&&author&&fileName&&category&&content)){
+			alert("不能有空值");
+			return;
+		}
+		var article = new Object();
+		article.title = title;
+		article.summary = summary;
+		article.author = author;
+		article.fileName = fileName;
+		article.category = category;
+		article.content = content;
+
+		article = JSON.stringify(article);
+		$.ajax({
+			type: 'POST',
+			url: 'article/write.do',
+			dataType: 'json',
+			data: {articleString: article},
+			success: function (data) {
+				alert(data.resultMsg)
+			},
+			error: function (data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	}
+
+	function asyncData(){
+		$.ajax({
+			type: 'POST',
+			url: 'data/asyncData.do',
+			dataType: 'json',
+			success: function (data) {
+				alert(data.resultMsg)
+			},
+			error: function (data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	}
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var categoryList = "";
+		$.ajax({
+			type: 'POST',
+			url: 'category/list.do',
+			dataType: 'json',
+			async: false,
+			success: function (data) {
+				categoryList = data;
+			},
+			error: function (data) {
+				alert(JSON.stringify(data));
+			}
+		});
+
+		var category_list_tmp = Handlebars.compile($("#show_category_list").html());
+		$('#category').html(category_list_tmp(categoryList));
+	});
+</script>
+</body>
+</html>

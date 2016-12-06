@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>保单报送</title>
+    <script type="text/javascript" src="js/jquery213.js"></script>
+    <script type="text/javascript" src="js/handlebars303.js"></script>
+    <style>
+        table{ background:#F00}
+        table td{ background:#FFF}
+    </style>
+</head>
+<body>
+<div>
+    <div id="searchBox">
+        <div>
+            开始时间：<input type="text" id="startDate" value="20160101">
+        </div>
+        <div>
+            结束时间：<input type="text" id="endDate" value="20160909">
+        </div>
+        <div>
+            业务状态：<select id="bizStatus">
+            <option value="">所有状态</option>
+            <option value="文件已下载">文件已下载</option>
+            <option value="文件已上传">文件已上传</option>
+        </select>
+        </div>
+        <input type="button" onclick="searchOpt()" value="查询">
+    </div>
+    <div>
+        <table border="0" cellspacing="1" cellpadding="0">
+            <thead>
+            <tr>
+                <td>文件日期</td>
+                <td>业务状态</td>
+                <td>文件名称</td>
+                <td>查询类型</td>
+                <td>报送状态</td>
+                <td>数据状态</td>
+                <td>返回信息</td>
+                <td>错误比率</td>
+                <td>错误文件</td>
+                <td>创建时间</td>
+                <td>修改时间</td>
+                <td>查询码</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody id='result'>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+
+</div>
+<script id="show_opt_result" type="text/x-handlebars-template">
+
+    {{#each this}}
+    <tr>
+        <td>{{dataFolder}}</td>
+        <td>{{bizStatus}}</td>
+        <td>{{optFile}}</td>
+        <td>{{queryType}}</td>
+        <td>{{status}}</td>
+        <td>{{dataStatus}}</td>
+        <td>{{msg}}</td>
+        <td>{{errorRatio}}</td>
+        <td>{{errFileLocal}}</td>
+        <td>{{gmtCreated}}</td>
+        <td>{{gmtModified}}</td>
+        <td>{{queryNo}}</td>
+        <td><a href="/operation/queryIncResult/{{id}}">查询状态</a> <a href="/common/downloadErrorFile/{{errFileLocal}}">下载</a></td>
+    </tr>
+    {{/each}}
+
+</script>
+<script type="text/javascript">
+    function searchOpt() {
+        var startDate = $('#startDate').val();
+        var endDate = $('#endDate').val();
+        var bizStatus = $('#bizStatus').val();
+        $.ajax({
+            type : 'POST',
+            url : '/maintain/searchOptList',
+            data : {
+                startDate : startDate,
+                endDate : endDate,
+                bizStatus : bizStatus
+            },
+            dataType : 'json',
+            success : function(data) {
+                if (data.result) {
+                    var show_opt_result = Handlebars.compile($(
+                            "#show_opt_result").html());
+                    console.log(JSON.stringify(data.message));
+                    $('#result').html(show_opt_result(data.message));
+                } else {
+                    alert(data.message);
+                }
+
+            }
+        });
+
+    }
+</script>
+</body>
+</html>

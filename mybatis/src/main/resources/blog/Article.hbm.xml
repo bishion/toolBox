@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="Article" table="ARTICLE" catalog="blog">
+		<id name="id" type="java.lang.Integer">
+			<column name="ID"/>
+			<generator class="native" />
+		</id>
+		<property name="title" type="java.lang.String">
+			<column name="TITLE" length="100" not-null="true">
+				<comment>标题</comment>
+			</column>
+		</property>
+		<property name="author" type="java.lang.String">
+			<column name="AUTHOR" length="50" not-null="true">
+				<comment>作者</comment>
+			</column>
+		</property>
+		<property name="index" type="java.lang.Integer">
+			<column name="[index]" length="100" not-null="true">
+				<comment>标题</comment>
+			</column>
+		</property>
+		<property name="summary" type="java.lang.String">
+			<column name="SUMMARY" length="100" not-null="true">
+				<comment>摘要</comment>
+			</column>
+		</property>
+
+		<property name="path" type="java.lang.String">
+			<column name="PATH" length="100" not-null="true">
+				<comment>摘要</comment>
+			</column>
+		</property>
+		<many-to-one name="category" column="CATEGORY" class="Category" fetch="select"/>
+		<one-to-one name="content" class="ArtContent" cascade="all"/>
+
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" not-null="true">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+
+	</class>
+</hibernate-mapping>

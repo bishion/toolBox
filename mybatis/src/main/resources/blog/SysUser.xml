@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sysUser">
+
+    <cache/>
+
+   <!-- <resultMap type="com.bizi.mybatis.model.blog.SysUser" id="resultListUser">
+        <id column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+    </resultMap>-->
+
+    <select id="queryById" resultType="sysUser" parameterType="String">
+        SELECT
+        USERNAME,
+        PASSWORD
+        FROM SYS_USER
+        WHERE username = #{username}
+    </select>
+</mapper>

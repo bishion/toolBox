@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+	<meta charset="UTF-8">
+	<title>itEye</title>
+	<link rel="stylesheet" type="text/css" href="css/blog.css"/>
+	<script type="text/javascript" src="js/jquery213.js"></script>
+	<script type="text/javascript" src="js/handlebars303.js"></script>
+	<script type="text/javascript" src="data/all_data.js"></script>
+</head>
+
+<body id="main_wide">
+<div id="header" class="cf">
+	<div id="title">碧子的部落格</div>
+	<div id="search"><input type="text" name="search" size="20" class="searchBox"/><img src="images/searchSubmit.gif"/>
+	</div>
+</div>
+<div id="container" class="cf">
+	<div id="homePage">
+		<h2 id="category_name">最新文章</h2>
+		<ul id="category_art_list">
+			<script id="show_category_art" type="text/x-handlebars-template">
+				{{#each this}}
+				<li class="module-list-item"><a href="{{this.path}}">{{this.title}}</a>({{this.createDate}})</li>
+				{{/each}}
+			</script>
+
+		</ul>
+	</div>
+	<div id="category">
+		<h2>分类</h2>
+		<ul class="module-list" id="category_list">
+			<script id="show_category_list" type="text/x-handlebars-template">
+				{{#each this}}
+				<li class="module-list-item"><a href="{{this.path}}" title="{{this.category}}">{{this.category}}</a>（{{this.number}}）
+				</li>
+				{{/each}}
+			</script>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		(function ($) {
+			$.getUrlParam = function (name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if (r != null) return unescape(r[2]); return null;
+			}
+		})(jQuery);
+
+		// 将抬头改为分类名称
+		var param_category = $.getUrlParam("category");
+		$('#category_name').html(category_map[param_category]);
+
+		// 将该分类下的文章列出
+		var latest_art_tmp = Handlebars.compile($("#show_category_art").html());
+		$('#category_art_list').html(latest_art_tmp(category_art[param_category]));
+
+		// 初始化分类列表
+		var category_tmp = Handlebars.compile($("#show_category_list").html());
+		$('#category_list').html(category_tmp(categories));
+
+	});
+</script>
+
+
+<div id="footer">
+	<p>联系方式&nbsp;|&nbsp;bishion@163.com 2015</p>
+</div>
+</body>
+</html>

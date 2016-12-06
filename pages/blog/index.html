@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+	<meta charset="UTF-8">
+	<title>itEye</title>
+	<link rel="stylesheet" type="text/css" href="css/blog.css"/>
+	<script type="text/javascript" src="js/jquery213.js"></script>
+	<script type="text/javascript" src="js/handlebars303.js"></script>
+	<script type="text/javascript" src="data/all_data.js"></script>
+</head>
+
+<body id="main_wide">
+<div id="header" class="cf">
+	<div id="title">碧子的部落格</div>
+	<div id="search"><input type="text" name="search" size="20" class="searchBox"/><img src="images/searchSubmit.gif"/>
+	</div>
+</div>
+<div id="container" class="cf">
+	<div id="homePage">
+		<h2>最新文章</h2>
+		<ul id="latest_art_list">
+			<script id="show_latest_art" type="text/x-handlebars-template">
+				{{#each this}}
+				<li class="module-list-item"><span>{{this.createDate}} » </span><a href="{{this.path}}">{{this.title}}</a></li>
+				{{/each}}
+			</script>
+
+		</ul>
+	</div>
+	<div id="category">
+		<h2>分类</h2>
+		<ul class="module-list" id="category_list">
+			<script id="show_category_list" type="text/x-handlebars-template">
+				{{#each this}}
+				<li class="module-list-item"><a href="{{this.path}}" title="{{this.category}}">{{this.category}}</a>（{{this.number}}）
+				</li>
+				{{/each}}
+			</script>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var latest_art_tmp = Handlebars.compile($("#show_latest_art").html());
+		$('#latest_art_list').html(latest_art_tmp(latest_art));
+
+		var category_tmp = Handlebars.compile($("#show_category_list").html());
+		$('#category_list').html(category_tmp(categories));
+	});
+</script>
+
+
+<div id="footer">
+	<p>联系方式&nbsp;|&nbsp;bishion@163.com 2015</p>
+</div>
+</body>
+</html>

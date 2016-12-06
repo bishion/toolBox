@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.action.extension" value="shtml" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.convention.default.parent.package"
+		value="b2b-default" />
+	<constant name="struts.custom.i18n.resources" value="resources/ApplicationResources" />
+	<constant name="objectFactory" value="spring" />
+	<constant name="struts.convention.package.locators" value="view" /> 
+	<!-- 服务器允许最大文件流 10M -->
+	<constant name="struts.multipart.maxSize" value="10485760"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" /> 
+	<package name="b2b-default" extends="struts-default,jasperreports-default">
+
+		<default-interceptor-ref name="baseDefaultStack"></default-interceptor-ref>
+		<global-results>
+			<result name="exception">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Throwable"
+				result="exception" />
+		</global-exception-mappings>
+	</package>
+</struts>

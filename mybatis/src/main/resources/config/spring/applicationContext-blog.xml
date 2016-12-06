@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	">
+	
+	<bean id="configurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:config/database/jdbc.properties</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<bean id="dataSource_blog" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass">
+			<value>${blog.mybatis.connection.driver_class}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${blog.mybatis.connection.url}</value>
+		</property>
+		<property name="user">
+			<value>${blog.mybatis.connection.username}</value>
+		</property>
+		<property name="password">
+			<value>${blog.mybatis.connection.password}</value>
+		</property>
+
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+
+		<property name="maxPoolSize">
+			<value>5</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>2</value>
+		</property>
+		<property name="idleConnectionTestPeriod" value="25"></property>
+		<property name="maxIdleTime" value="30"></property>
+	</bean>
+
+	<bean id="sessionFactory_blog"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource_blog"/>
+		</property>
+		<property name="configLocation"><value>classpath:config/mybatis/mybatis.xml</value></property>
+
+	</bean>
+
+	<!-- 配置SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sessionFactory_blog" />
+	</bean>
+
+	<bean id="jdbcTemplate_blog" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref ="dataSource_blog"/>
+	</bean>
+</beans>
